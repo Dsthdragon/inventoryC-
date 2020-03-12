@@ -1,0 +1,47 @@
+﻿<Window x:Class="TurboInventory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TurboInventory"
+        mc:Ignorable="d"
+        Title="TurboInventory" WindowStyle="None" SizeToContent="Manual" WindowStartupLocation="CenterScreen" MinWidth="800" MinHeight="600">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Left" Width="200" Background="Green" >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" Height="100">
+                    <Label FontSize="20" Foreground="White" VerticalAlignment="Center">INVENTORY APP</Label>
+                </StackPanel>
+                <UniformGrid Rows="6" Margin="10,10,10,10" >
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,20,1,20" x:Name="homeButton" Width="180" PreviewMouseLeftButtonUp="homeButton_PreviewMouseLeftButtonUp" >
+                        <Image Source="/Resources/home.png" Width="40" Height="40" />
+                        <Label FontSize="20" Foreground="White" VerticalAlignment="Center">HOME</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="contactButton" Width="180" PreviewMouseLeftButtonUp="contactButton_PreviewMouseLeftButtonUp">
+                        <Image Source="/Resources/contact.png" Width="40" Height="40" />
+                        <Label FontSize="20" Foreground="White" VerticalAlignment="Center">CONTACTS</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="transactionsButton" Width="180" PreviewMouseLeftButtonUp="transactionsButton_PreviewMouseLeftButtonUp"  >
+                        <Image Source="/Resources/transaction.png" Width="40" Height="40" />
+                        <Label FontSize="18" Foreground="White" VerticalAlignment="Center">TRANSACTION</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="itemButton" PreviewMouseLeftButtonUp="itemButton_PreviewMouseLeftButtonUp" Width="180" >
+                        <Image Source="/Resources/item.png" Width="40" Height="40" />
+                        <Label FontSize="20" Foreground="White" VerticalAlignment="Center">CATLOG</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="reportButton" PreviewMouseLeftButtonUp="reportButton_PreviewMouseLeftButtonUp" Width="180" >
+                        <Image Source="/Resources/report.png" Width="40" Height="40" />
+                        <Label FontSize="20" Foreground="White" VerticalAlignment="Center">REPORT</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="exitButton" PreviewMouseLeftButtonUp="exitButton_PreviewMouseLeftButtonUp" Width="180"  >
+                        <Image Source="/Resources/exit.png" Width="40" Height="40" OpacityMask="Black" />
+                        <Label FontSize="20" Foreground="White" VerticalAlignment="Center">EXIT</Label>
+                    </StackPanel>
+                </UniformGrid>
+            </StackPanel>
+            <Frame x:Name="PageFrame" NavigationUIVisibility="Hidden">
+            </Frame>
+        </DockPanel>
+    </Grid>
+</Window>
