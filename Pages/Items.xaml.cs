@@ -77,5 +77,13 @@ namespace TurboInventory.Pages
                 this.GetItems();
             }
         }
+
+        private void viewItem_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item)itemGrid.SelectedItem;
+            itemGrid.UnselectAll();
+            ItemPage itemPage = new ItemPage(item);
+            this.NavigationService.Navigate(itemPage);
+        }
     }
 }

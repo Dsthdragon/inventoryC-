@@ -9,8 +9,8 @@ using TurboInventory;
 namespace TurboInventory.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200312101912_ReInitialize")]
-    partial class ReInitialize
+    [Migration("20200312160617_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,7 @@ namespace TurboInventory.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValueSql("date()");
+                        .HasDefaultValueSql("DATETIME()");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -50,7 +50,7 @@ namespace TurboInventory.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValueSql("date()");
+                        .HasDefaultValueSql("DATETIME()");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -67,6 +67,39 @@ namespace TurboInventory.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("TurboInventory.Models.ItemReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Brought")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("DATETIME()");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Remaining")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Taken")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Transactions")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemReports");
+                });
+
             modelBuilder.Entity("TurboInventory.Models.Transaction", b =>
                 {
                     b.Property<int>("Id")
@@ -79,7 +112,7 @@ namespace TurboInventory.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValueSql("date()");
+                        .HasDefaultValueSql("DATETIME()");
 
                     b.Property<bool>("Credit")
                         .ValueGeneratedOnAdd()
@@ -89,7 +122,7 @@ namespace TurboInventory.Migrations
                     b.Property<int>("IssuerId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ItemId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ReceiverId")
@@ -106,6 +139,15 @@ namespace TurboInventory.Migrations
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("TurboInventory.Models.ItemReport", b =>
+                {
+                    b.HasOne("TurboInventory.Models.Item", "Item")
+                        .WithMany("ItemReports")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TurboInventory.Models.Transaction", b =>
                 {
                     b.HasOne("TurboInventory.Models.Contact", "Issuer")
@@ -116,7 +158,9 @@ namespace TurboInventory.Migrations
 
                     b.HasOne("TurboInventory.Models.Item", "Item")
                         .WithMany("Transactions")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TurboInventory.Models.Contact", "Receiver")
                         .WithMany("Received")

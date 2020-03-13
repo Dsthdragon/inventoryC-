@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:TurboInventory"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Javanese Text" />
+        </Style>
+        <Style TargetType="Control">
+            <Setter Property="FontFamily" Value="Javanese Text" />
+        </Style>
     </Application.Resources>
 </Application>

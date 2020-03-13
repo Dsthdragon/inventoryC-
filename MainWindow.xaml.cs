@@ -57,7 +57,7 @@ namespace TurboInventory
 
         private void reportButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            GoTo(new Home());
+            GoTo(new Reports());
         }
 
         private void exitButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

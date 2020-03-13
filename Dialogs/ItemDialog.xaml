@@ -31,7 +31,19 @@
         <Label Content="Name:" Grid.Row="1" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
         <TextBox Text="{Binding Name}" Margin="20,10,50,10"  VerticalAlignment="Center" FontSize="20" Grid.Row="1" Grid.Column="1"  />
         <Label Content="Stock:" Grid.Row="2" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
-        <TextBox Text="{Binding Stock}" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="2" Grid.Column="1" />
+        <TextBox Text="{Binding Stock}" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="2" Grid.Column="1">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Id}"  Value="0">
+                            <Setter Property="IsEnabled" Value="True" />
+                        </DataTrigger>
+                        
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Label Content="Description:" Grid.Row="3" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
         <TextBox Text="{Binding Description}" Margin="20,10,50,10" VerticalAlignment="Stretch" FontSize="20" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" />
         

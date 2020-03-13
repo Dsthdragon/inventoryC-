@@ -19,19 +19,12 @@ namespace TurboInventory.Models
         public string Phone { get; set; }
 
 
-        public override string ToString()
-        {
-            return "Contact: " + Name + " " + Phone + " " + Id;
-        }
-
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Created { get; set; }
 
-        [InverseProperty("Issuer")]
-        public ICollection<Transaction> Issued { get; set; }
 
-        [InverseProperty("Receiver")]
-        public ICollection<Transaction> Received{ get; set; }
+        public virtual ICollection<Transaction> Issued { get; set; }
+
+        public virtual ICollection<Transaction> Received{ get; set; }
     }
 }

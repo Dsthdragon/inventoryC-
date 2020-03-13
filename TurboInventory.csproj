@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200312155125_Initial.cs" />
+    <Compile Remove="Migrations\20200312155125_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Models\Transaction.cs~RF1ab5d6e0.TMP" />
     <None Remove="Resources\contact.png" />
     <None Remove="Resources\exit.png" />
@@ -17,12 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Chart.js" Version="2.9.3" />
+    <PackageReference Include="ExpertXls.ExcelLibrary" Version="5.0.0" />
+    <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Dialogs\ReportDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialogs\TransactionDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -56,6 +69,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Dialogs\ReportDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\TransactionDialog.xaml">
       <SubType>Designer</SubType>
     </Page>

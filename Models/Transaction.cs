@@ -11,17 +11,21 @@ namespace TurboInventory.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [ForeignKey("Issuer")]
         [Required]
         public int IssuerId { get; set; }
-        public Contact Issuer { get; set; }
+        public virtual Contact Issuer { get; set; }
 
+        [ForeignKey("Receiver")]
         [Required]
         public int ReceiverId { get; set; }
-        public Contact Receiver { get; set; }
+        public virtual Contact Receiver { get; set; }
 
+        [ForeignKey("Item")]
         [Required]
         public int ItemId { get; set; }
-        public Item Item { get; set; }
+        public virtual Item Item { get; set; }
 
         public bool Credit { get; set; }
 
@@ -30,7 +34,7 @@ namespace TurboInventory.Models
 
         public override string ToString()
         {
-            return "Transaction: ID - " + Id + " IssuerId - " + IssuerId + " " + IssuerId.ToString() + " ReceiverId - " + ReceiverId + " " + IssuerId.ToString() + " Credit - " + Credit + " Amount - " + Amount;
+            return "Transaction: ID - " + Id + " IssuerId - " + IssuerId + " " + Issuer.ToString() + " ReceiverId - " + ReceiverId + " " + Receiver.ToString() + " Credit - " + Credit + " Amount - " + Amount;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

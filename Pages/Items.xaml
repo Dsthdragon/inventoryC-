@@ -9,9 +9,10 @@
       Title="Items">
     <Grid>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" Orientation="Horizontal" FlowDirection="RightToLeft" >
-                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddItem" Foreground="WhiteSmoke" Height="40" FontSize="25" Width="100" Click="AddItem_Click" >ADD</Button>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" >
+                <TextBlock Margin="40,0" FontSize="25" HorizontalAlignment="Stretch" DockPanel.Dock="Left" FontFamily="Javanese Text">Catlog</TextBlock>
+                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddItem" Foreground="WhiteSmoke" Height="40" FontSize="20" Width="100" Click="AddItem_Click" >ADD</Button>
+            </DockPanel>
             <Border DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="5" Background="Green" />
             <DataGrid x:Name="itemGrid" VerticalAlignment="Stretch" 
                       ItemsSource="{Binding items}" IsReadOnly="True" AutoGenerateColumns="False">
@@ -21,10 +22,13 @@
                     <DataGridTextColumn Width="50" Header="Stock" Binding="{Binding Stock}" />
                     <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description}" />
                     <DataGridTextColumn Width="150" Header="Created" Binding="{Binding Created}" />
-                    <DataGridTemplateColumn Width="100" Header="Action">
+                    <DataGridTemplateColumn Width="220" Header="Action">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="editItem" Foreground="WhiteSmoke" Height="24" Width="100" Click="editItem_Click">EDIT</Button>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="viewItem" Foreground="WhiteSmoke" Height="24" Width="100" Click="viewItem_Click">View</Button>
+                                    <Button Margin="20,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="editItem" Foreground="WhiteSmoke" Height="24" Width="100" Click="editItem_Click">EDIT</Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

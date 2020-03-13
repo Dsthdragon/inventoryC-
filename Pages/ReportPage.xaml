@@ -1,0 +1,78 @@
+﻿<Page x:Class="TurboInventory.Pages.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TurboInventory.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ReportPage">
+
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" >
+                <Label Margin="40,0,0,0" Content="Report Date: " FontSize="25" HorizontalAlignment="Left" DockPanel.Dock="Left" FontFamily="Javanese Text" />
+                <Button Margin="30,0" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="GoBack" Foreground="WhiteSmoke" Height="40" FontSize="20" Width="100" Click="GoBack_Click" >Back</Button>
+                <Button Margin="30,0" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="GenerateXLS" Foreground="WhiteSmoke" Height="40" FontSize="20" Width="Auto" Padding="10,0" Click="GenerateXLS_Click" >GENERATE EXCEL</Button>
+
+                <Label Margin="40,0" Content="{Binding report.Created.Date }" FontSize="25" HorizontalAlignment="Stretch" DockPanel.Dock="Left" FontFamily="Javanese Text" />
+            </DockPanel>
+            <Border DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="5" Background="Green" />
+            <Grid VerticalAlignment="Stretch" Margin="5">
+                <TabControl>
+                    <TabItem Header="Details">
+                        <Grid  >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Start:" Grid.Row="0" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
+                            <TextBlock Text="{Binding report.StartDate.Date, StringFormat='ddd dd MMMM, yyyy'}" Margin="20,10,50,10"  VerticalAlignment="Center" FontSize="20" Grid.Row="0" Grid.Column="1"  />
+                            <Label Content="End:" Grid.Row="1" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
+                            <TextBlock Text="{Binding report.EndDate.Date, StringFormat='ddd dd MMMM, yyyy' }" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="1" Grid.Column="1" />
+                            <Label Content="Taken:" Grid.Row="2" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
+                            <TextBlock Text="{Binding report.Taken}" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="2" Grid.Column="1" />
+                            <Label Content="Received:" Grid.Row="3" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
+                            <TextBlock Text="{Binding report.Received}" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="3" Grid.Column="1" />
+                            <Label Content="Transaction:" Grid.Row="4" FontSize="20" HorizontalAlignment="Right"  VerticalAlignment="Center" FontWeight="DemiBold" />
+                            <TextBlock Text="{Binding report.TotalTransactions}" Margin="20,10,50,10" VerticalAlignment="Center" FontSize="20" Grid.Row="4" Grid.Column="1" />
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Transaction">
+                        <Grid>
+                            <DataGrid x:Name="transactionGrid" VerticalAlignment="Stretch"  FontSize="15"
+                      ItemsSource="{Binding transactions}" IsReadOnly="True" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="50" Header="Id" Binding="{Binding Id}" />
+                                    <DataGridTextColumn Width="*" Header="Issuer Name" Binding="{Binding Issuer.Name }" />
+                                    <DataGridTextColumn Width="*" Header="Receiver Name" Binding="{Binding  Receiver.Name }" />
+                                    <DataGridTextColumn Width="*" Header="Item" Binding="{Binding Item.Name }" />
+                                    <DataGridTextColumn Width="60" Header="Amount" Binding="{Binding Amount}">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground"  Value="Red"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Credit }" Value="True">
+                                                        <Setter Property="Foreground"  Value="Green"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Width="200" Header="Created" Binding="{Binding Created}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Page>

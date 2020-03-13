@@ -36,6 +36,7 @@ namespace TurboInventory.Dialogs
         public TransactionDialog(Transaction value)
         {
             Owner = Application.Current.MainWindow;
+            Debug.WriteLine("Transaction" + value.Item.ToString());
             transaction = value;
             this.SetDataContext();
             InitializeComponent();
@@ -61,7 +62,6 @@ namespace TurboInventory.Dialogs
         private void saveTransactionButton_Click(object sender, RoutedEventArgs e)
         {
 
-            Debug.WriteLine("Transaction" + transaction.ToString());
             if (transaction.IssuerId == 0)
             {
                 DefaultDialog defaultDialog = new DefaultDialog(this, "", "Issuer is required!");
@@ -110,8 +110,41 @@ namespace TurboInventory.Dialogs
                         item.Stock += transaction.Amount;
                     } else
                     {
-                        item.Stock += transaction.Amount;
+                        item.Stock -= transaction.Amount;
                     }
+                    ItemReport itemReport = db.ItemReports.Where(ir => ir.ItemId == item.Id && ir.Created.Date == DateTime.Today).SingleOrDefault();
+                    if (itemReport == null)
+                    {
+                        itemReport = new ItemReport();
+
+                        if (transaction.Credit)
+                        {
+                            itemReport.Brought += transaction.Amount;
+                        } else
+                        {
+                            itemReport.Taken += transaction.Amount;
+                        }
+                        itemReport.Remaining = item.Stock;
+                        itemReport.Transactions += 1;
+                        itemReport.ItemId = item.Id;
+                        db.ItemReports.Add(itemReport);
+                    }
+                    else
+                    {
+                        if (transaction.Credit)
+                        {
+                            itemReport.Brought += transaction.Amount;
+                        }
+                        else
+                        {
+                            itemReport.Taken += transaction.Amount;
+                        }
+                        itemReport.Remaining = item.Stock;
+                        itemReport.Transactions += 1;
+                        itemReport.ItemId = item.Id;
+                        db.ItemReports.Update(itemReport);
+                    }
+                    db.Items.Update(item);
                     db.Transactions.Add(transaction);
                     db.SaveChanges();
                 }

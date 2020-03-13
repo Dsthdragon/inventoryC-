@@ -9,24 +9,31 @@
       Title="Transactions">
     <Grid>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" Orientation="Horizontal" FlowDirection="RightToLeft" >
-                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddTransaction" Foreground="WhiteSmoke" Height="40" FontSize="25" Width="100" Click="AddTransaction_Click" >ADD</Button>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" >
+                <TextBlock Margin="40,0" FontSize="25" HorizontalAlignment="Stretch" DockPanel.Dock="Left" FontFamily="Javanese Text">Transactions</TextBlock>
+                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddTransaction" Foreground="WhiteSmoke" Height="40" FontSize="20" Width="100" Click="AddTransaction_Click" >ADD</Button>
+            </DockPanel>
             <Border DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="5" Background="Green" />
-            <DataGrid x:Name="transactionGrid" VerticalAlignment="Stretch" 
+            <DataGrid x:Name="transactionGrid" VerticalAlignment="Stretch"  FontSize="15"
                       ItemsSource="{Binding transactions}" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="50" Header="Id" Binding="{Binding Id}" />
-                    <DataGridTextColumn Width="*" Header="Name" Binding="{Binding Name}" />
-                    <DataGridTextColumn Width="*" Header="Phone" Binding="{Binding Phone}" />
-                    <DataGridTextColumn Width="150" Header="Created" Binding="{Binding Created}" />
-                    <DataGridTemplateColumn Width="100" Header="Action">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="editTransaction" Foreground="WhiteSmoke" Height="24" Width="100" Click="editTransaction_Click">EDIT</Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="*" Header="Issuer Name" Binding="{Binding Issuer.Name }" />
+                    <DataGridTextColumn Width="*" Header="Receiver Name" Binding="{Binding  Receiver.Name }" />
+                    <DataGridTextColumn Width="*" Header="Item" Binding="{Binding Item.Name }" />
+                    <DataGridTextColumn Width="60" Header="Amount" Binding="{Binding Amount}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground"  Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Credit }" Value="True">
+                                        <Setter Property="Foreground"  Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="200" Header="Created" Binding="{Binding Created}" />
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>

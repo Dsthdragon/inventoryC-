@@ -6,27 +6,26 @@ using System.Text;
 
 namespace TurboInventory.Models
 {
-    public class Item
+    public class ReportItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public int Id { get; set; }
 
-        public int Stock { get; set; }
+        [ForeignKey("Item")]
+        [Required]
+        public int ItemId { get; set; }
+        public Item Item { get; set; }
+
+        [ForeignKey("Report")]
+        [Required]
+        public int ReportId { get; set; }
+        public Report Report { get; set; }
+
+        public int Left { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime Created { get; set; }
-
-        public virtual ICollection<Transaction> Transactions { get; set; }
-
-        public virtual ICollection<ItemReport> ItemReports { get; set; }
-        public override string ToString()
-        {
-            return "Item: " + Name + " Description: " + Description + " Stock" + Stock;
-        }
-
     }
 }

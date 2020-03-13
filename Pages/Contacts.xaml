@@ -10,9 +10,10 @@
 
     <Grid>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" Orientation="Horizontal" FlowDirection="RightToLeft" >
-                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddContact" Foreground="WhiteSmoke" Height="40" FontSize="25" Width="100" Click="AddContact_Click" >ADD</Button>
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="50" >
+                <TextBlock Margin="40,0" FontSize="25" HorizontalAlignment="Stretch" DockPanel.Dock="Left" FontFamily="Javanese Text">Contact</TextBlock>
+                <Button Margin="30,0" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkOliveGreen" x:Name="AddContact" Foreground="WhiteSmoke" Height="40" FontSize="20" Width="100" Click="AddContact_Click" >ADD</Button>
+            </DockPanel>
             <Border DockPanel.Dock="Top" HorizontalAlignment="Stretch" Height="5" Background="Green" />
             <DataGrid x:Name="contactGrid" VerticalAlignment="Stretch" 
                       ItemsSource="{Binding contacts}" IsReadOnly="True" AutoGenerateColumns="False">

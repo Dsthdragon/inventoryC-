@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TurboInventory.Migrations
 {
-    public partial class ReInitialize : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace TurboInventory.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: false),
                     Phone = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "date()")
+                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "DATETIME()")
                 },
                 constraints: table =>
                 {
@@ -31,11 +31,35 @@ namespace TurboInventory.Migrations
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Stock = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "date()")
+                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "DATETIME()")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemReports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Transactions = table.Column<int>(nullable: false),
+                    Remaining = table.Column<int>(nullable: false),
+                    Taken = table.Column<int>(nullable: false),
+                    Brought = table.Column<int>(nullable: false),
+                    ItemId = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "DATETIME()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemReports_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,10 +70,10 @@ namespace TurboInventory.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     IssuerId = table.Column<int>(nullable: false),
                     ReceiverId = table.Column<int>(nullable: false),
-                    ItemId = table.Column<int>(nullable: true),
+                    ItemId = table.Column<int>(nullable: false),
                     Credit = table.Column<bool>(nullable: false, defaultValueSql: "False"),
                     Amount = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "date()")
+                    Created = table.Column<DateTime>(nullable: false, defaultValueSql: "DATETIME()")
                 },
                 constraints: table =>
                 {
@@ -65,7 +89,7 @@ namespace TurboInventory.Migrations
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transactions_Contacts_ReceiverId",
                         column: x => x.ReceiverId,
@@ -73,6 +97,11 @@ namespace TurboInventory.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemReports_ItemId",
+                table: "ItemReports",
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Transactions_IssuerId",
@@ -92,6 +121,9 @@ namespace TurboInventory.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ItemReports");
+
             migrationBuilder.DropTable(
                 name: "Transactions");
 
